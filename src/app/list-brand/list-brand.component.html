@@ -1,0 +1,54 @@
+
+<div>
+    <form [formGroup]="myForm" class="form-group">
+        <label>Brand Name</label>&nbsp;
+        <input type="text" name="txtBrandName" id="txtBrandName" formControlName="txtBrandName" #txtBrandName>&nbsp;&nbsp;
+        <label>Logo File</label>&nbsp;
+        <input type="file" name="fileLogo" id="fileLogo" #fileLogo (change)="onFileChange($event)"><br><br>
+        <button class="btn btn-info input-block-level form-control" type="button" (click)="addBrand()">Brand Input</button>
+    </form>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">BrandId</th>
+            <th scope="col">Brand Name</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let db of dataBrands">
+            <td>{{ db.brandid }}</td>
+            <td>{{ db.brandname }}</td>
+            <td>
+                <button class="btn btn-warning btn-edit" data-toggle="modal" data-target="#modalEdit" (click)="getBrand(db)">Edit</button>&nbsp;
+                <button class="btn btn-danger btn-delete" (click)="delBrand(db.brandid)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="modalEdit" #modalEdit tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Brand</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+            <form [formGroup]="editForm">
+                <label>Brand Id</label>
+                <input type="text" class="form-control" name="txtBrandId" id="txtBrandId" formControlName="txtBrandId" #txtBrandId readonly><br>
+                <label>Brand Name</label>
+                <input type="text" class="form-control" name="txtBrandNameEdit" id="txtBrandNameEdit" formControlName="txtBrandNameEdit" #txtBrandNameEdit >
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="updateBrand()">Save changes</button>
+        </div>
+      </div>
+    </div>
+</div>

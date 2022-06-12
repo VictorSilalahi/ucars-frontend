@@ -1,0 +1,73 @@
+<div>
+    <form [formGroup]="myForm" class="form-group">
+        <label>Model Name</label>&nbsp;
+        <input type="text" name="txtModelName" id="txtModelName" formControlName="txtModelName" #txtModelName>&nbsp;
+        <label>Image File</label>&nbsp;
+        <input type="file" name="fileImage" id="fileImage" #fileImage (change)="onFileChange($event)">
+        <label>Description</label>&nbsp;
+        <input type="text" name="txtDescription" id="txtDescription" formControlName="txtDescription" #txtDescription>&nbsp;
+        <label>Price ($)</label>&nbsp;
+        <input type="text" name="txtPrice" id="txtPrice" formControlName="txtPrice" #txtPrice><br><br>
+        <button class="btn btn-info input-block-level form-control" type="button" (click)="addModel()">Model Input</button>
+    </form>
+</div>
+<div>
+    <label>Choose Brand Name</label>
+    <select class="form-control" id="slcBrandName" #slcBrandName (click)="getAllModels($event)">
+        <option *ngFor="let db of dataBrands" value="{{ db.brandid }}">{{ db.brandname }}</option>
+    </select>
+</div>
+<table class="table" id="tblModels" #tblModels>
+    <thead>
+        <tr>
+            <th scope="col">ModelId</th>
+            <th scope="col">Model Name</th>
+            <th scope="col">Desc</th>
+            <th scope="col">Price</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let dm of dataModels">
+            <td>{{ dm.modelid }}</td>
+            <td>{{ dm.modelname }}</td>
+            <td>{{ dm.desc }}</td>
+            <td>{{ dm.price }}</td>
+            <td>
+                <button class="btn btn-warning btn-edit" (click)="getModel(dm)">Edit</button>&nbsp;
+                <button class="btn btn-danger btn-delete" (click)="delModel(dm.modelid)">Delete</button>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="modalEdit" #modalEdit tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Brand</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+            <form [formGroup]="editForm">
+                <label>Brand Id</label>
+                <input type="text" class="form-control" name="txtBrandNameEdit" id="txtBrandNameEdit" formControlName="txtBrandNameEdit" #txtBrandNameEdit readonly><br>
+                <input type="hidden" class="form-control" name="txtModelId" id="txtModelId" formControlName="txtModelId" #txtModelId><br>
+                <label>Model Name</label>
+                <input type="text" class="form-control" name="txtModelNameEdit" id="txtModelNameEdit" formControlName="txtModelNameEdit" #txtModelNameEdit >
+                <label>Description</label>
+                <input type="text" class="form-control" name="txtDescriptionEdit" id="txtDescriptionEdit" formControlName="txtDescriptionEdit" #txtDescriptionEdit >
+                <label>Price</label>
+                <input type="text" class="form-control" name="txtPriceEdit" id="txtPriceEdit" formControlName="txtPriceEdit" #txtPriceEdit >
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="updateModel()" >Save changes</button>
+        </div>
+      </div>
+    </div>
+</div>

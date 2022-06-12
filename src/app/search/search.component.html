@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="row">
+        <div class="form-inline">
+            <button class="btn btn-default  float-end" (click)="search()">Search</button><input (keyup.enter)="search()" type="text" id="txtSearch" name="txtSearch" #txtSearch class="float-end">
+        </div>
+    </div>
+    <div class="row">
+        <br><br><br>
+        <ul>
+            <li *ngFor="let res of dataModels">
+                <h6>{{res.modelid}}</h6>
+                <span><h4>Name : {{res.modelname}}</h4></span>
+                <p>Price ($SGD) : <b>{{ res.price }}</b></p>
+                <p>
+                    <img style="width:150px;height:120px" src="{{ res.image }}">
+                </p>
+                <hr>
+            </li>
+        </ul>
+          
+          
+
+    </div>
+</div>
